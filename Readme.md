@@ -11,8 +11,11 @@ This tutorial is intended for people with some experience writing Go who want to
 ## learning
 
 :heavy_check_mark: How to serve static assets.
+
 :heavy_check_mark: How to create an HTTP handler.
+
 :heavy_check_mark: How to route requests dynamically.
+
 :heavy_check_mark: How to create middleware.
 
 ## Requirements

@@ -13,15 +13,36 @@ type profile struct {
 }
 
 func main()  {
-	http.HandleFunc("/welcome", welcome)
-	http.HandleFunc("/profile", getProfile)
+
+	mux := http.NewServeMux()
+
+	v1Mux := http.NewServeMux()
+	v1Mux.HandleFunc("/profile", func(w http.ResponseWriter, r *http.Request) {
+			fmt.Fprintln(w, "v1 Profile")
+	})
+	v1Mux.HandleFunc("/posts", func(w http.ResponseWriter, r *http.Request) {
+			fmt.Fprintln(w, "v1 Posts")
+	})
+
+	v2Mux := http.NewServeMux()
+	v2Mux.HandleFunc("/profile", func(w http.ResponseWriter, r *http.Request) {
+			fmt.Fprintln(w, "v2 Profile")
+	})
+	v2Mux.HandleFunc("/posts", func(w http.ResponseWriter, r *http.Request) {
+			fmt.Fprintln(w, "v2 Posts")
+	})
+
+	mux.Handle("/v1/", http.StripPrefix("/v1", v1Mux))
+	mux.Handle("/v2/", http.StripPrefix("/v2", v2Mux))
+	mux.HandleFunc("/welcome", welcome)
+	mux.HandleFunc("/profile", getProfile)
 
 	// http.Handle("/", http.FileServer(http.Dir("/tmp")))
 
 	fs := http.FileServer(http.Dir("static"))
-	http.Handle("/", fs)
+	mux.Handle("/", fs)
 
-	if err := http.ListenAndServe(":8080", nil); err != nil {
+	if err := http.ListenAndServe(":8080", mux); err != nil {
 		log.Fatal(err)
 	} 	
 }

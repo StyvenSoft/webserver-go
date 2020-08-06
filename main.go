@@ -37,12 +37,14 @@ func main()  {
 	mux.HandleFunc("/welcome", welcome)
 	mux.HandleFunc("/profile", getProfile)
 
+	loggedHandler := loggingMiddleware(mux)
+
 	// http.Handle("/", http.FileServer(http.Dir("/tmp")))
 
 	fs := http.FileServer(http.Dir("static"))
 	mux.Handle("/", fs)
 
-	if err := http.ListenAndServe(":8080", mux); err != nil {
+	if err := http.ListenAndServe(":8080", loggedHandler); err != nil {
 		log.Fatal(err)
 	} 	
 }
@@ -69,4 +71,12 @@ func getProfile(w http.ResponseWriter, r *http.Request)  {
 
 func welcome(w http.ResponseWriter, r *http.Request)  {
 	fmt.Fprintln(w, "Welcome to the GO server..")
+}
+
+func loggingMiddleware(handler http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			log.Printf("Got a %s request for: %v\n", r.Method, r.URL)
+			handler.ServeHTTP(w, r)
+			log.Printf("Handler finished processing request.")
+	})
 }

@@ -24,3 +24,15 @@ This tutorial is intended for people with some experience writing Go who want to
 - Knowledge of Go syntax and basic concepts.
 - Access to the terminal window on your computer. The commands assume you're using Bash or an equivalent.
 - A code editor.
+
+---
+
+## Docs
+
+func [ListenAndServe](https://golang.org/pkg/net/http/#ListenAndServe)
+
+func [FileServer](https://golang.org/pkg/net/http/#ListenAndServe)
+
+type [ServeMux](https://golang.org/pkg/net/http/#ServeMux)
+
+func [StripPrefix](https://golang.org/pkg/net/http/#StripPrefix)

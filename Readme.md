@@ -25,9 +25,30 @@ This tutorial is intended for people with some experience writing Go who want to
 - Access to the terminal window on your computer. The commands assume you're using Bash or an equivalent.
 - A code editor.
 
+## Run the server
+
+To start, download the starting code
+
+```bash
+git clone https://github.com/StyvenSoft/webserver-go.git
+```
+Go to project directory:
+
+```bash
+cd webserver-go
+```
+Use the auto setup script:
+
+```bash
+bash server-setup.sh
+```
+The web server is now running at `localhost:8080`
+
 ---
 
-## Docs
+## Reference docs
+
+[HTTP package documentation](https://golang.org/pkg/net/http/)
 
 func [ListenAndServe](https://golang.org/pkg/net/http/#ListenAndServe)
 
